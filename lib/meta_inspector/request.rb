@@ -34,7 +34,7 @@ module MetaInspector
       return unless response
       body = response.body
       body = body.encode!(@encoding, @encoding, :invalid => :replace) if @encoding
-      body.tr("\000", '')
+      body = body.tr("\000", '').gsub('\u0000', '')
     rescue ArgumentError => e
       raise MetaInspector::RequestError.new(e)
     end
